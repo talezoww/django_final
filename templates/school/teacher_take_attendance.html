@@ -28,10 +28,6 @@
 
 </head>
 
-<!--
-written By : sumit kumar
--->
-
 
 <form method="post">
   <div class="container">
@@ -48,19 +44,33 @@ written By : sumit kumar
           <thead>
 
             <tr>
-              <th>Student Name</th>
-              <th>Present/Absent</th>
-            </tr>
-          </thead>
+  <th>Student Name</th>
+  <th>Present/Absent</th>
+  <th>Grade</th>
+</tr>
+</thead>
 
+{% csrf_token %}
+{% for student in students %}
+<tr>
+  <td>{{ student.get_name }}</td>
+  <td>{{ aform.present_status }}</td>
+  <td>
+    <!-- Dropdown for selecting subject -->
+    <select name="subject_{{ student.id }}">
+      <option value="">Select Subject</option>
+      <option value="math">Math</option>
+      <option value="science">Science</option>
+      <option value="history">History</option>
+      <!-- Add more subjects as needed -->
+    </select>
 
-          {% csrf_token %}
-          {%for student in students%}
-          <tr>
-            <td>{{student.get_name}}</td>
-            <td>{{aform.present_status}}</td>
-          </tr>
-          {%endfor%}
+    <!-- Input field for entering grade -->
+    <input type="text" name="grade_{{ student.id }}" placeholder="Enter Grade">
+  </td>
+</tr>
+{% endfor %}
+
 
 
 
